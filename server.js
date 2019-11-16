@@ -8,4 +8,8 @@ configureMiddleware(server);
 
 server.use("/api/auth", authRouter);
 
+server.get('/', (req, res) => {
+    res.send('<h1>Hello From  Devin');
+});
+
 module.exports = server;
