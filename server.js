@@ -1,6 +1,6 @@
 const express = require("express");
 const configureMiddleware = require("./middleware/config-middle");
-const authRouter = require("./Routes/authRouter.js");
+const authRouter = require("./routes/authRouter.js");
 
 const server = express();
 
