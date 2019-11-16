@@ -1,21 +1,24 @@
 const express = require("express").Router();
 const bcrypt = require("bcryptjs"); // npm i bcryptjs
-const auth = require("./authModel");
-const jwt = require('jsonwebtoken');
+const auth = require("./authmodel");
+const jwt = require("jsonwebtoken");
 // const requiresAuth = require("../middleware/requires-auth-middleware");
 // const auth = require('./scheme-model.js');
 
-
 function generateToken(user) {
-    const payload = {
-      username: user.username,
-      id: user.id,
-    };
-    const options = {
-      expiresIn: '1d',
-    };
-    return jwt.sign(payload, process.env.JWT_SECRET || 'lkajsdlkjaskldj', options);
-  }
+  const payload = {
+    username: user.username,
+    id: user.id
+  };
+  const options = {
+    expiresIn: "1d"
+  };
+  return jwt.sign(
+    payload,
+    process.env.JWT_SECRET || "lkajsdlkjaskldj",
+    options
+  );
+}
 
 express.post("/register", (req, res) => {
   let userInformation = req.body;
@@ -45,11 +48,11 @@ express.post("/login", (req, res) => {
     .then(user => {
       // check that the password is valid
       if (user && bcrypt.compareSync(password, user.password)) {
-          const token = generateToken(user); 
+        const token = generateToken(user);
         res.status(200).json({
-             message: `Welcome ${user.username}!` ,
-             token
-            });
+          message: `Welcome ${user.username}!`,
+          token
+        });
       } else {
         res.status(401).json({ message: "Invalid Credentials" });
       }
@@ -59,7 +62,5 @@ express.post("/login", (req, res) => {
       res.status(500).json(error);
     });
 });
-
-
 
 module.exports = express;
