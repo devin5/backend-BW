@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require("../data/dbConfig.js");
 
-const add = user => {
+const add = (user) => {
   return db("users").insert(user, 'id');
 };
 
